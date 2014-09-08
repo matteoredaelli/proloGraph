@@ -15,7 +15,7 @@ Run the server with
 
 and open the following url with your browser
 
-	http://localhost:8765/vertex?name=user(1)
+	http://localhost:8765/vertex?name=user(matteo)
 
 The result will be
 

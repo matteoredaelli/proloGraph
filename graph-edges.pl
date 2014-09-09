@@ -1,9 +1,9 @@
 edge(user(matteo), user(ele), follow).
 edge(user(matteo), user(gabriele), follow).
-edge(user(matteo), user(4), follow).
+edge(user(matteo), user(nico), follow).
 edge(user(gabriele), user(ele), follow).
 edge(user(gabriele), user(matteo), follow).
-edge(user(4), user(ele), follow).
+edge(user(nico), user(ele), follow).
 edge(user(matteo), country(italy), lives).
 edge(user(gabriele), country(italy), lives).
 edge(user(matteo), hobby(running), likes).

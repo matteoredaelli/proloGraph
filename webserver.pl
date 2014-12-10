@@ -9,19 +9,36 @@
 :- use_module(library(http/json_convert)).
 
 :- http_handler(root(hello_world), say_hi, []).
-:- http_handler('/vertex', show_vertex, []).
+:- http_handler('/find_by_relation', find_by_relation, []).
+:- http_handler('/find_by_name', find_by_name, []).
 
-:- consult('graph-edges').
 :- consult('graph-utils').
 
 server(Port) :-
+    %% load edges from a csv file
+    csv_read_file("graph-edges.csv", Rows, [functor(edge), arity(5)]),
+    %% trasforming edges to facts
+    maplist(assert, Rows),
     http_server(http_dispatch, [port(Port)]).
 
-edge_to_term_json([E1, Rel, E2], json([from=E1A, to=E2A, rel=Rel])) :-
-    term_to_atom(E1, E1A),
-    term_to_atom(E2, E2A).
+edge_to_term_json([C1, E1, Rel, C2, E2], json([from=json([class=C1,name=E1]), to=json([class=C2,name=E2]), rel=Rel])).
 
-show_vertex(Request) :-
+find_by_relation(Request) :-
+    http_parameters(Request,
+		    [
+		     relation(NameString,   [])
+		    ]),
+    read_term_from_atom(NameString, Relation, []),
+    %% 
+    %% previous vertexes
+    %%
+    find_relations(Relation, Edges),
+    maplist(edge_to_term_json, Edges, PE),
+
+    prolog_to_json(json([edges=PE]), Json),
+    reply_json(Json).
+
+find_by_name(Request) :-
     http_parameters(Request,
 		    [
 		     name(NameString,   [])

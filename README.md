@@ -1,7 +1,7 @@
 proloGraph
 ==========
 
-A demo for a REST server developed in prolog
+A demo for a REST server developed in prolog reading facts from a CSV file
 
 # Usage
 
@@ -20,17 +20,31 @@ Run the server with
 
 and open the following url with your browser
 
-	http://localhost:8765/vertex?name=user(matteo)
+	http://gauss.it.pirelli.com:8765/find_by_relation?relation=follow
 
 The result will be
 
-	{
-	  "prev": [ {"from":"user(gabriele)", "to":"user(matteo)", "rel":"follow"} ],
-	  "next": [
-	    {"from":"user(matteo)", "to":"user(ele)", "rel":"follow"},
-	    {"from":"user(matteo)", "to":"user(gabriele)", "rel":"follow"},
-	    {"from":"user(matteo)", "to":"user(nico)", "rel":"follow"},
-	    {"from":"user(matteo)", "to":"country(italy)", "rel":"lives"},
-	    {"from":"user(matteo)", "to":"hobby(running)", "rel":"likes"}
-	  ]
-	}	
+ {
+  "edges": [
+    {
+      "from": {"class":"user", "name":"matteo"},
+      "to": {"class":"user", "name":"ele"},
+      "rel":"follow"
+    },
+    {
+      "from": {"class":"user", "name":"matteo"},
+      "to": {"class":"user", "name":"gabriele"},
+      "rel":"follow"
+    },
+    {
+      "from": {"class":"user", "name":"ele"},
+      "to": {"class":"user", "name":"gabriele"},
+      "rel":"follow"
+    },
+    {
+      "from": {"class":"user", "name":"ele"},
+      "to": {"class":"user", "name":"matteo"},
+      "rel":"follow"
+    }
+  ]
+ }

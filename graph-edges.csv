@@ -1,0 +1,6 @@
+user,matteo,follow,user,ele
+user,matteo,lives_in,country,italy
+user,matteo,follow,user,gabriele
+user,ele,follow,user,gabriele
+user,ele,follow,user,matteo
+user,ele,works,city,milan

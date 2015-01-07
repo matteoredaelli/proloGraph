@@ -20,7 +20,7 @@ Run the server with
 
 and open the following url with your browser
 
-	http://gauss.it.pirelli.com:8765/edges_by_class_name?class=user&name=matteo
+	http://myserver:8765/edges_by_class_name?class=user&name=matteo
 
 The result will be
 

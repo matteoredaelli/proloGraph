@@ -62,15 +62,15 @@ edges_by_class_name(Request) :-
     read_term_from_atom(ClassString, Class, []),
     read_term_from_atom(NameString, Name, []),
     %% 
-    %% previous vertexes
+    %% previous vertices
     %%
-    prev_vertexes(Class, Name, PrevEdges),
+    prev_vertices(Class, Name, PrevEdges),
     maplist(edge_to_term_json, PrevEdges, PE),
 
     %% 
-    %% next vertexes
+    %% next vertices
     %%
-    next_vertexes(Class, Name, NextEdges),
+    next_vertices(Class, Name, NextEdges),
     maplist(edge_to_term_json, NextEdges, NE),
 
     prolog_to_json(json([prev=PE,

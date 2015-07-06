@@ -13,6 +13,7 @@ Clone my git repository
 
 	git clone https://github.com/matteoredaelli/proloGraph
 	cd proloGraph
+	mv graph-edges.csv.sample graph-edges.csv
 
 Run the server with
 

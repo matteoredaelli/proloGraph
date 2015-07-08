@@ -55,7 +55,7 @@ The result will be
 
 And
 
-	http://gauss.it.pirelli.com:8765/edges_by_relation?relation=follow
+	http://myserver:8765/edges_by_relation?relation=follow
 
  {
   "edges": [

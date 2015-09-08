@@ -26,9 +26,32 @@ server(Port) :-
 
 edge_to_term_json([E1, Rel, E2], json([from=json([name=E1]), to=json([name=E2]), rel=Rel])).
 
-edges_by_name(Request) :-
+edges_by_name_post(Request) :-
     member(method(post), Request), !,
     http_read_data(Request, [name=Name], []),
+    edges_by_name(Name, Edges),
+    maplist(edge_to_term_json, Edges, PE),
+    prolog_to_json(json([edges=PE]), Json),
+    reply_json(Json).
+
+edges_by_relation_post(Request) :-
+    member(method(post), Request), !,
+    http_read_data(Request, [relation=Relation], []),
+    %% 
+    %%
+    edges_by_relation(Relation, Edges),
+    maplist(edge_to_term_json, Edges, PE),
+    prolog_to_json(json([edges=PE]), Json),
+    reply_json(Json).
+
+edges_by_name(Request) :-
+    http_parameters(Request,
+		    [
+		     name(NameString,   [])
+		    ]),
+    read_term_from_atom(NameString, Name, []),
+    %% 
+    %%
     edges_by_name(Name, Edges),
     maplist(edge_to_term_json, Edges, PE),
 
@@ -36,8 +59,11 @@ edges_by_name(Request) :-
     reply_json(Json).
 
 edges_by_relation(Request) :-
-    member(method(post), Request), !,
-    http_read_data(Request, [relation=Relation], []),
+    http_parameters(Request,
+		    [
+		     relation(NameString,   [])
+		    ]),
+    read_term_from_atom(NameString, Relation, []),
     %% 
     %%
     edges_by_relation(Relation, Edges),
@@ -45,3 +71,4 @@ edges_by_relation(Request) :-
 
     prolog_to_json(json([edges=PE]), Json),
     reply_json(Json).
+

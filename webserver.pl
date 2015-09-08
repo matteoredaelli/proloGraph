@@ -11,9 +11,9 @@
 
 :- http_handler(root(hello_world), say_hi, []).
 :- http_handler('/edges_by_relation', edges_by_relation, []).
-:- http_handler('/edges_by_class_name', edges_by_class_name, []).
+:- http_handler('/edges_by_relation_post', edges_by_relation_post, []).
 :- http_handler('/edges_by_name', edges_by_name, []).
-:- http_handler('/vertices_by_name', vertices_by_name, []).
+:- http_handler('/edges_by_name_post', edges_by_name_post, []).
 
 :- consult('graph-utils').
 

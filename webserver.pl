@@ -3,11 +3,13 @@
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_parameters)).
 :- use_module(library(http/http_client)).
-:- use_module(library(uri)). 
+:- use_module(library(http/http_unix_daemon)).
 
 :- use_module(library(http/json)).
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json_convert)).
+
+:- use_module(library(uri)). 
 
 :- http_handler(root(hello_world), say_hi, []).
 :- http_handler('/edges_by_relation', edges_by_relation, []).
@@ -15,14 +17,10 @@
 :- http_handler('/edges_by_name', edges_by_name, []).
 :- http_handler('/edges_by_name_post', edges_by_name_post, []).
 
+:- initialization http_daemon.
 :- consult('graph-utils').
 
-server(Port) :-
-    %% load edges from a csv file
-    csv_read_file("graph-edges.csv", Rows, [functor(edge), arity(3)]),
-    %% trasforming edges to facts
-    maplist(assert, Rows),
-    http_server(http_dispatch, [port(Port)]).
+:-  csv_read_file("graph-edges.csv", Rows, [functor(edge), arity(3)]), maplist(assert, Rows).
 
 edge_to_term_json([E1, Rel, E2], json([from=json([name=E1]), to=json([name=E2]), rel=Rel])).
 
